@@ -24,6 +24,7 @@ services:
       backend:
         aliases:
           - "database"
+
   configserver:
     build: ../config-server
     image: config-server-image
@@ -34,11 +35,13 @@ services:
       backend:
         aliases:
           - "configserver"
+
   licensingservice:
     build: ../licensing-service
     image: licensing-service-image
     container_name: licensing-service-container
     environment:
+      SPRING_PROFILES_ACTIVE: docker
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8010
     depends_on:
       database:
