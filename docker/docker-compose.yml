@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  database:
+    image: postgres:16.1
+    container_name: database-postgres
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "ostock_dev"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/1-init.sql
+      - ./sql/data.sql:/docker-entrypoint-initdb.d/2-data.sql
+      - microservices-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    networks:
+      backend:
+        aliases:
+          - "database"
+  configserver:
+    build: ../config-server
+    image: config-server-image
+    container_name: config-server-container
+    ports:
+      - "8010:8010"
+    networks:
+      backend:
+        aliases:
+          - "configserver"
+  licensingservice:
+    build: ../licensing-service
+    image: licensing-service-image
+    container_name: licensing-service-container
+    environment:
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8010
+    depends_on:
+      database:
+        condition: service_healthy
+      configserver:
+        condition: service_started
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  microservices-data:
+    name: microservices-data

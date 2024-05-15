@@ -1,10 +1,10 @@
-package org.ilia.licensingservice;
+package org.ilia.configserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LicensingServiceApplicationTests {
+class ConfigServerApplicationTests {
 
     @Test
     void contextLoads() {

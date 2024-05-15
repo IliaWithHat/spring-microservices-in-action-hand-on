@@ -1,3 +1,16 @@
 spring:
   application:
     name: licensing-service
+  profiles:
+    active: dev
+  config:
+    import: configserver:http://localhost:8010
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

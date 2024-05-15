@@ -1,45 +1,36 @@
 package org.ilia.licensingservice.service;
 
+import lombok.RequiredArgsConstructor;
 import org.ilia.licensingservice.entity.License;
+import org.ilia.licensingservice.repository.LicenseRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Random;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class LicenseService {
 
-    public License getLicense(String licenseId, String organizationId) {
-        License license = new License();
-        license.setId(new Random().nextInt(1000));
-        license.setLicenseId(licenseId);
-        license.setOrganizationId(organizationId);
-        license.setDescription("Software product");
-        license.setProductName("O-stock");
-        license.setLicenseType("full");
-        return license;
+    private final LicenseRepository licenseRepository;
+
+    public Optional<License> getLicense(String licenseId, String organizationId) {
+        return licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
     }
 
-    public String createLicense(License license, String organizationId) {
-        String responseMessage = null;
-        if (license != null) {
-            license.setOrganizationId(organizationId);
-            responseMessage = String.format("This is the post and the object is: %s", license);
-        }
-        return responseMessage;
+    public License createLicense(License license) {
+        license.setLicenseId(UUID.randomUUID().toString());
+        return licenseRepository.save(license);
     }
 
-    public String updateLicense(String licenseId, String organizationId, License license) {
-        String responseMessage = null;
-        if (license != null) {
-            license.setOrganizationId(organizationId);
-            responseMessage = String.format("This is the put and the object is: %s", license);
-        }
-        return responseMessage;
+    public License updateLicense(License license) {
+        return licenseRepository.save(license);
     }
 
-    public String deleteLicense(String licenseId, String organizationId) {
-        String responseMessage = null;
-        responseMessage = String.format("Deleting license with id %s for the organization %s", licenseId, organizationId);
-        return responseMessage;
+    public void deleteLicense(String licenseId) {
+        licenseRepository.findByLicenseId(licenseId)
+                .ifPresent(licenseRepository::delete);
     }
 }
