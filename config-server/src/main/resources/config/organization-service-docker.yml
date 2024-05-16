@@ -9,7 +9,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     serviceUrl:
-      defaultZone: http://localhost:8030/eureka/
+      defaultZone: http://eurekaserver:8030/eureka/
 
 server:
   port: 8040

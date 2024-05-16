@@ -44,6 +44,8 @@ services:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_CONFIG_IMPORT: configserver:http://configserver:8010
     depends_on:
+      database:
+        condition: service_healthy
       configserver:
         condition: service_started
     ports:
