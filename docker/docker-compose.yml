@@ -36,6 +36,23 @@ services:
         aliases:
           - "configserver"
 
+  eurekaserver:
+    build: ../eureka-server
+    image: eureka-server-image
+    container_name: eureka-server-container
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8010
+    depends_on:
+      configserver:
+        condition: service_started
+    ports:
+      - "8030:8030"
+    networks:
+      backend:
+        aliases:
+          - "eurekaserver"
+
   licensingservice:
     build: ../licensing-service
     image: licensing-service-image
@@ -49,7 +66,24 @@ services:
       configserver:
         condition: service_started
     ports:
-      - "8080:8080"
+      - "8020:8020"
+    networks:
+      - backend
+
+  organization-service:
+    build: ../organization-service
+    image: organization-service-image
+    container_name: organization-service-container
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8010
+    depends_on:
+      database:
+        condition: service_healthy
+      configserver:
+        condition: service_started
+    ports:
+      - "8040:8040"
     networks:
       - backend
 
