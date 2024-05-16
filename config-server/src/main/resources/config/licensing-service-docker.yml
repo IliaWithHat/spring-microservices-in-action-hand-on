@@ -3,3 +3,19 @@ spring:
     url: jdbc:postgresql://database:5432/ostock_dev
     username: postgres
     password: postgres
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8030/eureka/
+
+server:
+  port: 8020
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

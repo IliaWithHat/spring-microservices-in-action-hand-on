@@ -1,0 +1,11 @@
+For licensing-service
+SPRING_PROFILES_ACTIVE=dev
+SPRING_CONFIG_IMPORT=configserver:http://localhost:8010
+
+For eureka-server
+SPRING_PROFILES_ACTIVE=dev
+SPRING_CONFIG_IMPORT=configserver:http://localhost:8010
+
+For organization-service
+SPRING_PROFILES_ACTIVE=dev
+SPRING_CONFIG_IMPORT=configserver:http://localhost:8010
