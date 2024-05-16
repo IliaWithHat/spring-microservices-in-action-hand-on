@@ -6,8 +6,6 @@ import org.ilia.licensingservice.service.LicenseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -21,10 +19,9 @@ public class LicenseController {
     @GetMapping("/{licenseId}")
     public ResponseEntity<License> getLicense(@PathVariable("organizationId") String organizationId,
                                               @PathVariable("licenseId") String licenseId) {
-        Optional<License> maybeLicense = licenseService.getLicense(licenseId, organizationId);
+        License license = licenseService.getLicense(licenseId, organizationId);
 
-        if (maybeLicense.isPresent()) {
-            License license = maybeLicense.get();
+        if (license != null) {
             license.add(
                     linkTo(methodOn(LicenseController.class)
                             .getLicense(organizationId, license.getLicenseId()))
@@ -57,6 +54,7 @@ public class LicenseController {
 
     @DeleteMapping("/{licenseId}")
     public ResponseEntity<?> deleteLicense(@PathVariable("licenseId") String licenseId) {
+        licenseService.deleteLicense(licenseId);
         return ResponseEntity.ok().build();
     }
 }

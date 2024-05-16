@@ -3,7 +3,7 @@ version: '3.9'
 services:
   database:
     image: postgres:16.1
-    container_name: database-postgres
+    container_name: postgres-container
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
@@ -72,7 +72,7 @@ services:
     networks:
       - backend
 
-  organization-service:
+  organizationservice:
     build: ../organization-service
     image: organization-service-image
     container_name: organization-service-container
