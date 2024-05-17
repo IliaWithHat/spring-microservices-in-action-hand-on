@@ -1,19 +1,53 @@
+@echo off
+
+echo Building config-server...
 cd config-server
-./gradlew bootJar
+call ./gradlew.bat bootJar
+if errorlevel 1 (
+    echo Failed to build config-server
+    exit /b 1
+)
 cd ..
 
+echo.
+echo Building eureka-server...
 cd eureka-server
-./gradlew bootJar
+call ./gradlew.bat bootJar
+if errorlevel 1 (
+    echo Failed to build eureka-server
+    exit /b 1
+)
 cd ..
 
+echo.
+echo Building licensing-service...
 cd licensing-service
-./gradlew bootJar
+call ./gradlew.bat bootJar
+if errorlevel 1 (
+    echo Failed to build licensing-service
+    exit /b 1
+)
 cd ..
 
+echo.
+echo Building organization-service...
 cd organization-service
-./gradlew bootJar
+call ./gradlew.bat bootJar
+if errorlevel 1 (
+    echo Failed to build organization-service
+    exit /b 1
+)
 cd ..
 
+echo.
+echo Starting docker containers...
 cd docker
 docker-compose up -d
+if errorlevel 1 (
+    echo Failed to start docker containers
+    exit /b 1
+)
 cd ..
+
+echo.
+echo Build and startup complete.
