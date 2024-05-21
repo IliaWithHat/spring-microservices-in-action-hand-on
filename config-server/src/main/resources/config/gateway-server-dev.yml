@@ -1,9 +1,3 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/ostock_dev
-    username: postgres
-    password: postgres
-
 eureka:
   instance:
     prefer-ip-address: true
@@ -14,7 +8,7 @@ eureka:
       defaultZone: http://localhost:8030/eureka/
 
 server:
-  port: 8020
+  port: 8050
 
 management:
   endpoints:
