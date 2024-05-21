@@ -6,6 +6,8 @@ import org.ilia.licensingservice.service.LicenseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -15,6 +17,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class LicenseController {
 
     private final LicenseService licenseService;
+
+    @GetMapping
+    public ResponseEntity<List<License>> getLicensesByOrganizationId(@PathVariable("organizationId") String organizationId) {
+        return ResponseEntity.ok(licenseService.getLicenseByOrganizationId(organizationId));
+    }
 
     @GetMapping("/{licenseId}")
     public ResponseEntity<License> getLicense(@PathVariable("organizationId") String organizationId,

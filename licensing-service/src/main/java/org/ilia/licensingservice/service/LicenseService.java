@@ -1,6 +1,8 @@
 package org.ilia.licensingservice.service;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.ilia.licensingservice.entity.License;
 import org.ilia.licensingservice.entity.Organization;
 import org.ilia.licensingservice.repository.LicenseRepository;
@@ -8,7 +10,10 @@ import org.ilia.licensingservice.service.client.OrganizationClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.TimeoutException;
 
 @Service
 @Transactional
@@ -33,6 +38,23 @@ public class LicenseService {
         }
 
         return license;
+    }
+
+    @CircuitBreaker(name = "licenseService")
+    public List<License> getLicenseByOrganizationId(String organizationId) {
+        randomlyRunLong();
+        return licenseRepository.findByOrganizationId(organizationId);
+    }
+
+    @SneakyThrows
+    private void randomlyRunLong() {
+        Random rand = new Random();
+        int randomNum = rand.nextInt((3 - 1) + 1) + 1;
+        if (randomNum == 3) {
+            System.out.println("Sleep");
+            Thread.sleep(5000);
+            throw new TimeoutException();
+        }
     }
 
     public License createLicense(License license) {
