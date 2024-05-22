@@ -16,6 +16,10 @@ eureka:
 server:
   port: 8020
 
+logging:
+  level:
+    org.ilia: DEBUG
+
 management:
   endpoints:
     web:
