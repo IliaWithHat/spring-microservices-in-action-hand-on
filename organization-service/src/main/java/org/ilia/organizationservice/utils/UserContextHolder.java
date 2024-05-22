@@ -1,4 +1,4 @@
-package org.ilia.licensingservice.utils;
+package org.ilia.organizationservice.utils;
 
 public final class UserContextHolder {
 

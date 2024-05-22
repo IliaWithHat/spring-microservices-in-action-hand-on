@@ -1,12 +1,15 @@
 package org.ilia.organizationservice.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.ilia.organizationservice.entity.Organization;
 import org.ilia.organizationservice.service.OrganizationService;
+import org.ilia.organizationservice.utils.UserContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "v1/organization")
@@ -16,6 +19,7 @@ public class OrganizationController {
 
     @RequestMapping(value = "/{organizationId}", method = RequestMethod.GET)
     public ResponseEntity<Organization> getOrganization(@PathVariable("organizationId") String organizationId) {
+        log.debug("OrganizationController Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
         return ResponseEntity.ok(service.findById(organizationId));
     }
 
