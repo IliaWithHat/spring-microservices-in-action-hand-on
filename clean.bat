@@ -1,5 +1,6 @@
 @echo off
 
+echo.
 echo Stopping Docker containers...
 docker stop postgres-container config-server-container eureka-server-container gateway-server-container licensing-service-container organization-service-container
 

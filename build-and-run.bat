@@ -1,39 +1,4 @@
 @echo off
 
-echo Building config-server...
-cd config-server
-call ./gradlew.bat bootJar
-cd ..
-
-echo.
-echo Building eureka-server...
-cd eureka-server
-call ./gradlew.bat bootJar
-cd ..
-
-echo.
-echo Building gateway-server...
-cd gateway-server
-call ./gradlew.bat bootJar
-cd ..
-
-echo.
-echo Building licensing-service...
-cd licensing-service
-call ./gradlew.bat bootJar
-cd ..
-
-echo.
-echo Building organization-service...
-cd organization-service
-call ./gradlew.bat bootJar
-cd ..
-
-echo.
-echo Starting docker containers...
-cd docker
-docker-compose up -d
-cd ..
-
-echo.
-echo Build and startup complete.
+call ./build.bat
+call ./run.bat

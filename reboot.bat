@@ -1,4 +1,4 @@
 @echo off
 
-call ./clean-docker.bat
+call ./clean.bat
 call ./build-and-run.bat
