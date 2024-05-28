@@ -7,6 +7,8 @@ import org.ilia.organizationservice.service.OrganizationService;
 import org.ilia.organizationservice.utils.UserContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -18,8 +20,12 @@ public class OrganizationController {
     private final OrganizationService service;
 
     @RequestMapping(value = "/{organizationId}", method = RequestMethod.GET)
-    public ResponseEntity<Organization> getOrganization(@PathVariable("organizationId") String organizationId) {
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Organization> getOrganization(@PathVariable("organizationId") String organizationId,
+                                                        BearerTokenAuthentication authentication) {
         log.debug("OrganizationController Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
+        log.debug("Authentication: {}", authentication);
+        log.debug("Authorities: {}", authentication.getAuthorities());
         return ResponseEntity.ok(service.findById(organizationId));
     }
 

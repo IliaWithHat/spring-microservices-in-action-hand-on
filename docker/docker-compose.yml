@@ -74,11 +74,6 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
-    healthcheck:
-      test: [ "CMD-SHELL", "curl -fs localhost:8030/actuator/health | grep UP || exit 1" ]
-      interval: 5s
-      timeout: 5s
-      retries: 10
     ports:
       - "8030:8030"
     networks:
@@ -94,11 +89,8 @@ services:
     depends_on:
       configserver:
         condition: service_healthy
-      eurekaserver:
-        condition: service_healthy
     ports:
       - "8050:8050"
-    restart: always
     networks:
       backend:
         aliases:
@@ -114,8 +106,6 @@ services:
         condition: service_healthy
       configserver:
         condition: service_healthy
-      eurekaserver:
-        condition: service_healthy
     ports:
       - "8020:8020"
     networks:
@@ -130,8 +120,6 @@ services:
       database:
         condition: service_healthy
       configserver:
-        condition: service_healthy
-      eurekaserver:
         condition: service_healthy
     ports:
       - "8040:8040"

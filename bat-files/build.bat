@@ -1,4 +1,5 @@
 @echo off
+cd ..
 
 echo.
 echo Building config-server...
@@ -29,3 +30,5 @@ echo Building organization-service...
 cd organization-service
 call ./gradlew.bat bootJar
 cd ..
+
+cd bat-files

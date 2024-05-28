@@ -4,6 +4,14 @@ spring:
     username: postgres
     password: postgres
 
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: http://localhost:8080/realms/spmia-realm/protocol/openid-connect/token/introspect
+          client-id: ostock
+          client-secret: o7b9NXfdIsgvcIMgK1MTAZ8gNoLLGHZl
+
 eureka:
   instance:
     prefer-ip-address: true
