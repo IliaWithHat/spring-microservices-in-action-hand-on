@@ -38,8 +38,14 @@ services:
       KEYCLOAK_DATABASE_NAME: keycloak
       KEYCLOAK_DATABASE_HOST: database
 
-      KC_HOSTNAME_URL: http://localhost:8080
+      KC_HOSTNAME_URL: http://keycloak:8080
       KC_HOSTNAME_ADMIN_URL: http://localhost:8080
+      KC_HEALTH_ENABLED: true
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -fs localhost:8080/health | grep UP || exit 1" ]
+      interval: 5s
+      timeout: 5s
+      retries: 50
     depends_on:
       database:
         condition: service_healthy
@@ -88,6 +94,8 @@ services:
     env_file: env_file
     depends_on:
       configserver:
+        condition: service_healthy
+      keycloak:
         condition: service_healthy
     ports:
       - "8050:8050"

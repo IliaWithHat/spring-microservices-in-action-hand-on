@@ -1,10 +1,54 @@
+#auto mapping routes
+#spring:
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true
+
+#manual mapping routes
 spring:
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
+      routes:
+        - id: organization-service
+          uri: lb://organization-service
+          predicates:
+            - Path=/organization-service/**
+          filters:
+            - RewritePath=/organization-service/(?<path>.*), /$\{path}
+            - TokenRelay=
+        - id: licensing-service
+          uri: lb://licensing-service
+          predicates:
+            - Path=/licensing-service/**
+          filters:
+            - RewritePath=/licensing-service/(?<path>.*), /$\{path}
+            - TokenRelay=
+
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: http://keycloak:8080/realms/spmia-realm/protocol/openid-connect/token/introspect
+          client-id: ostock
+          client-secret: o7b9NXfdIsgvcIMgK1MTAZ8gNoLLGHZl
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://keycloak:8080/realms/spmia-realm
+        registration:
+          ostock:
+            authorization-grant-type: authorization_code
+            provider: keycloak
+            client-id: ostock
+            client-secret: o7b9NXfdIsgvcIMgK1MTAZ8gNoLLGHZl
+            scope:
+              - email
+              - profile
+              - roles
+              - openid
 
 eureka:
   instance:
@@ -17,10 +61,6 @@ eureka:
 
 server:
   port: 8050
-
-logging:
-  level:
-    org.ilia: DEBUG
 
 management:
   endpoints:
