@@ -1,3 +1,4 @@
 Environment variable for licensing-service, eureka-server, organization-service and gateway-server
 SPRING_PROFILES_ACTIVE=dev
 SPRING_CONFIG_IMPORT=configserver:http://localhost:8010
+LOGGING_LEVEL_ROOT=debug

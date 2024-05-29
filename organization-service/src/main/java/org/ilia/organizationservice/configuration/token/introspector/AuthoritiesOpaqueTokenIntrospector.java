@@ -39,9 +39,9 @@ public class AuthoritiesOpaqueTokenIntrospector implements OpaqueTokenIntrospect
     private Collection<GrantedAuthority> extractAuthorities(OAuth2AuthenticatedPrincipal principal) {
         log.debug("All attributes: {}", principal.getAttributes());
         log.debug("All roles: {}", principal.getAuthorities());
-        Map<String, Object> clientAndRoles = principal.getAttribute("resource_access");
+        Map<String, Map<String, List<String>>> clientAndRoles = principal.getAttribute("resource_access");
         log.debug("Client attributes: {}", clientAndRoles);
-        List<String> roles = ((Map<String, List<String>>) clientAndRoles.get(clientId)).get("roles");
+        List<String> roles = clientAndRoles.get(clientId).get("roles");
         log.debug("Roles: {}", roles);
         return roles.stream()
                 .map(SimpleGrantedAuthority::new)
