@@ -31,13 +31,13 @@ spring:
     oauth2:
       resourceserver:
         opaquetoken:
-          introspection-uri: http://localhost:8080/realms/spmia-realm/protocol/openid-connect/token/introspect
+          introspection-uri: http://keycloak:8080/realms/spmia-realm/protocol/openid-connect/token/introspect
           client-id: ostock
           client-secret: o7b9NXfdIsgvcIMgK1MTAZ8gNoLLGHZl
       client:
         provider:
           keycloak:
-            issuer-uri: http://localhost:8080/realms/spmia-realm
+            issuer-uri: http://keycloak:8080/realms/spmia-realm
         registration:
           ostock:
             authorization-grant-type: authorization_code
@@ -49,6 +49,12 @@ spring:
               - profile
               - roles
               - openid
+
+keycloak:
+  server-url: http://keycloak:8080
+  realm: spmia-realm
+  username: admin
+  password: admin
 
 eureka:
   instance:
