@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://database:5432/ostock_dev
+    username: postgres
+    password: postgres
+
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: http://keycloak:8080/realms/spmia-realm/protocol/openid-connect/token/introspect
+          client-id: ostock
+          client-secret: o7b9NXfdIsgvcIMgK1MTAZ8gNoLLGHZl
+
+keycloak:
+  server-url: http://keycloak:8080
+  realm: spmia-realm
+  username: admin
+  password: admin
+  client-id: ostock
+  client-secret: o7b9NXfdIsgvcIMgK1MTAZ8gNoLLGHZl
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://eurekaserver:8030/eureka/
+
+server:
+  port: 8060
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
