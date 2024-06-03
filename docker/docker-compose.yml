@@ -39,6 +39,7 @@ services:
       KC_HOSTNAME_URL: http://keycloak:8080
       KC_HOSTNAME_ADMIN_URL: http://keycloak:8080
 
+      KC_LOG_LEVEL: DEBUG
       KC_HEALTH_ENABLED: true
     healthcheck:
       test: [ "CMD-SHELL", "curl -fs localhost:8080/health | grep UP || exit 1" ]

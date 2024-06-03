@@ -1,9 +1,4 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/ostock_dev
-    username: postgres
-    password: postgres
-
   security:
     oauth2:
       resourceserver:
@@ -19,6 +14,7 @@ keycloak:
   password: admin
   client-id: ostock
   client-secret: o7b9NXfdIsgvcIMgK1MTAZ8gNoLLGHZl
+  grant_type: password
 
 eureka:
   instance:
