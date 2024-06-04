@@ -10,8 +10,8 @@ spring:
 keycloak:
   server-url: http://keycloak:8080
   realm: spmia-realm
-  username: admin
-  password: admin
+  username: ilia
+  password: ilia
   client-id: ostock
   client-secret: o7b9NXfdIsgvcIMgK1MTAZ8gNoLLGHZl
   grant_type: password

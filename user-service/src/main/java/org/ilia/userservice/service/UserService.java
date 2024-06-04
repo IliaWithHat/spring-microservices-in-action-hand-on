@@ -107,7 +107,7 @@ public class UserService {
     }
 
     private String getAccessToken() {
-        return getAccessToken("ilia", "ilia");
+        return getAccessToken(keycloakProperties.getUsername(), keycloakProperties.getPassword());
     }
 
     public SignInResponse login(SignInRequest signInRequest) {
