@@ -12,6 +12,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,7 @@ public class UserService {
         payload.put("email", signUpRequest.getEmail());
         payload.put("firstName", signUpRequest.getUsername());
         payload.put("lastName", signUpRequest.getUsername());
+        payload.put("attributes", Map.of("birthDate", signUpRequest.getBirthDate().toString()));
         payload.put("enabled", true);
         payload.put("emailVerified", true);
         payload.put("credentials", List.of(credential));
