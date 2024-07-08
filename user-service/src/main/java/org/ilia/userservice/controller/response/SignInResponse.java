@@ -1,4 +1,4 @@
-package org.ilia.userservice.entity;
+package org.ilia.userservice.controller.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

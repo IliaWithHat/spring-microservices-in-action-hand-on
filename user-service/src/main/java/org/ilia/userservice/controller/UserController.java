@@ -1,10 +1,10 @@
 package org.ilia.userservice.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.ilia.userservice.entity.SignInRequest;
-import org.ilia.userservice.entity.SignInResponse;
-import org.ilia.userservice.entity.SignUpRequest;
-import org.ilia.userservice.entity.SignUpResponse;
+import org.ilia.userservice.controller.request.SignInRequest;
+import org.ilia.userservice.controller.request.SignUpRequest;
+import org.ilia.userservice.controller.response.SignInResponse;
+import org.ilia.userservice.controller.response.SignUpResponse;
 import org.ilia.userservice.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

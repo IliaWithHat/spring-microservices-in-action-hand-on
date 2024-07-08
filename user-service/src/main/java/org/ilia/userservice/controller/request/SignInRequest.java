@@ -1,4 +1,4 @@
-package org.ilia.userservice.entity;
+package org.ilia.userservice.controller.request;
 
 import lombok.Data;
 
