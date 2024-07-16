@@ -16,7 +16,7 @@ import static java.util.Collections.singletonMap;
 @EnableWebMvc
 public class ExceptionController extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {Exception.class})
+    @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ResponseWrapper> handleException(ResponseWrapper responseWrapper) {
         return ResponseEntity.ok(responseWrapper);
     }
